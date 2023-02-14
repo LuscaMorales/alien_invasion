@@ -15,7 +15,7 @@ def check_events(ship):
             if event.key == pygame.K_RIGHT:
                 ship.moving_right = False
             elif event.key == pygame.K_LEFT:
-                ship.moving_left = Falsev
+                ship.moving_left = False
 
 def update_screen(ai_settings,screen,ship,nave):
     screen.fill(ai_settings.bg_color)
