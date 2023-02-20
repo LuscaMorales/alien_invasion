@@ -11,5 +11,6 @@ class Nave():
         self.rect1.centerx = self.screen_rect.centerx
         self.rect1.centery = self.screen_rect.centery
 
+
     def blitme1(self):
         self.screen.blit(self.image1,self.rect1)
