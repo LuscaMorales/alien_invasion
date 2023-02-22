@@ -14,7 +14,7 @@ def run_game():
     while True:
         gf.check_events(my_settings, screen, nave, tiros)
         nave.update()
-        gf.update_tiros(tiros)
+        gf.update_tiros(tiros,nave)
         gf.update_screen(my_settings, screen, nave, tiros)
 
 
