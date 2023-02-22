@@ -7,6 +7,7 @@ class Nave():
         self.my_settings = my_settings
         self.image = pygame.image.load("images/missile-40387.bmp")
         self.image = pygame.transform.scale(self.image,my_settings.nave_size)
+        self.image = pygame.transform.rotate(self.image, -90)
         self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
         self.rect.centerx = self.screen_rect.centerx
