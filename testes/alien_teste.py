@@ -3,6 +3,7 @@ from settings_test import Settings
 import game_funct as gf
 from nave_teste import Nave
 from pygame.sprite import Group
+from star import Star
 
 def run_game():
     pygame.init()
@@ -11,11 +12,12 @@ def run_game():
     pygame.display.set_caption("Alien TESTE")
     nave = Nave(my_settings,screen)
     tiros = Group()
+    stars = Group()
     while True:
         gf.check_events(my_settings, screen, nave, tiros)
         nave.update()
         gf.update_tiros(tiros,nave)
-        gf.update_screen(my_settings, screen, nave, tiros)
-
+        gf.create_fleet(my_settings, screen, stars)
+        gf.update_screen(my_settings, screen, nave, stars, tiros)
 
 run_game()
