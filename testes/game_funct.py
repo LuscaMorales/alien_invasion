@@ -62,15 +62,23 @@ def get_numbers_stars_y(my_settings, star_height):
     numbers_stars_y = int(availible_space_y / (2 * star_height))
     return numbers_stars_y
 
-def create_star(my_settings, screen, stars , star_number):
+def create_star(my_settings, screen, stars , star_number, row_number):
     star = Star(my_settings, screen)
     star_height = star.rect.height
     star.y = int(star_height + (2 * star_height * star_number))
     star.rect.y = star.y
+    star.rect.x = my_settings.screen_widht - star.rect.width - 2 * star.rect.width * row_number
     stars.add(star)
 
-def create_fleet(my_settings, screen, stars):
+def create_fleet(my_settings, screen, stars, nave):
     star = Star(my_settings, screen)
     number_stars_y = get_numbers_stars_y(my_settings, star.rect.height)
-    for star_number in range(number_stars_y):
-        create_star(my_settings, screen, stars,star_number)
+    number_rows = get_numbers_rows(my_settings, nave.rect.width, star.rect.width)
+    for row_number in range(number_rows):
+        for star_number in range(number_stars_y):
+            create_star(my_settings, screen, stars, star_number, row_number)
+
+def get_numbers_rows(my_settings, nave_width, star_width):
+    available_space_x = (my_settings.screen_widht - (3 * star_width) - nave_width)
+    number_rows = int(available_space_x  / (2 * star_width))
+    return number_rows

@@ -1,7 +1,7 @@
 import pygame
 from pygame.sprite import Sprite
 
-class Star():
+class Star(Sprite):
     def __init__(self, my_settigs, screen):
         super(Star,self).__init__()
         self.screen = screen
