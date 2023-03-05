@@ -13,12 +13,11 @@ def run_game():
     nave = Nave(my_settings,screen)
     tiros = Group()
     stars = Group()
-
+    gf.create_fleet(my_settings, screen, stars, nave)
     while True:
         gf.check_events(my_settings, screen, nave, tiros)
         nave.update()
         gf.update_tiros(tiros,nave)
-        gf.create_fleet(my_settings, screen, stars, nave)
         gf.update_screen(my_settings, screen, nave, stars, tiros)
 
 run_game()

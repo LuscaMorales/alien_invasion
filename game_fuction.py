@@ -88,3 +88,21 @@ def get_number_rows(ai_settings, ship_height, alien_height):
     available_space_y = (ai_settings.screen_height - (3 * alien_height) - ship_height)
     number_rows = int(available_space_y / (2 * alien_height))
     return number_rows
+
+def update_aliens(ai_settings, aliens):
+    """Verifica se a frota esta em uma das bordas e entao atualiza as posicoes"""
+    check_fleet_edges(ai_settings, aliens)
+    aliens.update()
+
+def check_fleet_edges(ai_settings, aliens):
+    """Responde apropriadamente se algum alienigena alcancou a borda"""
+    for alien in aliens.sprites():
+        if alien.check_edges():
+            change_fleet_direction(ai_settings, aliens)
+            break
+
+def change_fleet_direction(ai_settings, aliens):
+    """Faz toda a frota descer e muda sua direcao"""
+    for alien in aliens.sprites():
+        alien.rect.y += ai_settings.fleet_drop_speed
+        ai_settings.fleet_direction *= -1
