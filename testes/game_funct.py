@@ -2,6 +2,7 @@ import sys
 import pygame
 from tiros import Tiro
 from star import Star
+from gotas import Gota
 
 def check_events(my_settings, screen, nave, tiros):
     for event in pygame.event.get():
@@ -12,10 +13,11 @@ def check_events(my_settings, screen, nave, tiros):
         elif event.type == pygame.KEYUP:
             check_keyup_events(event,nave)
 
-def update_screen(my_settings, screen, nave, stars, tiros):
+def update_screen(my_settings, screen, nave, stars, tiros, gotas):
     screen.fill(my_settings.bg_collor)
     for tiro in tiros.sprites():
         tiro.draw_tiro()
+    gotas.draw(screen)
     nave.blitme()
     stars.draw(screen)
     pygame.display.flip()
@@ -82,3 +84,38 @@ def get_numbers_rows(my_settings, nave_width, star_width):
     available_space_x = (my_settings.screen_widht - (3 * star_width) - nave_width)
     number_rows = int(available_space_x  / (2 * star_width))
     return number_rows
+
+def linha_da_gota(my_settings, gota_width):
+    available_x_gota = my_settings.screen_widht
+    numbers_gota = int(available_x_gota / (2 * gota_width))
+    return numbers_gota
+
+def create_gota(my_settings, screen, gotas, gota_numbers, gota_coluna):
+    gota = Gota(my_settings, screen)
+    gota_width = gota.rect.width
+    gota_heigth = gota.rect.height
+    gota.x = int(2 * gota_width * gota_numbers)
+    gota.rect.x = gota.x
+    gota.y = int(gota.screen_rect  2 * gota_heigth * gota_coluna)
+    gota.rect.y = gota.y
+    gotas.add(gota)
+
+def create_todas_gota(my_settings, screen, gotas):
+    gota = Gota(my_settings, screen)
+    linha_gota =  linha_da_gota(my_settings, gota.rect.width)
+    quantidade_add = 3
+    linha_gota += quantidade_add
+    numero_de_colunas_gota = numero_colunas_gota(my_settings, gota.rect.height)
+    for gota_coluna in range(numero_de_colunas_gota):
+        for gota_numbers in range(linha_gota):
+            create_gota(my_settings, screen, gotas, gota_numbers, gota_coluna)
+
+def numero_colunas_gota(my_settings, gota_height):
+    available_y_gota = my_settings.screen_height
+    numero_colunas = int(available_y_gota / (2 * gota_height))
+    colunas_add = 2
+    numero_colunas += colunas_add
+    return numero_colunas
+
+def update_gota(gotas):
+    gotas.update()

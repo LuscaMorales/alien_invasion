@@ -11,3 +11,5 @@ class Settings():
         self.tiro_height = 3
         self.tiro_color = (240,240,240)
         self.tiros_allowed = 3
+        #config da gota
+        self.gota_speed = 4
