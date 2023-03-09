@@ -12,4 +12,4 @@ class Settings():
         self.tiro_color = (240,240,240)
         self.tiros_allowed = 3
         #config da gota
-        self.gota_speed = 4
+        self.gota_speed = 1

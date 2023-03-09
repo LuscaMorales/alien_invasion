@@ -21,3 +21,12 @@ class Gota(Sprite):
     def update(self):
         self.y += self.my_settings.gota_speed
         self.rect.y = self.y
+
+    def check_bottom(self):
+        screen_rect = self.screen.get_rect()
+        if self.rect.y > screen_rect.bottom:
+            return True
+
+    def go_to_up(self):
+        self.y = -10
+        self.rect.y = self.y

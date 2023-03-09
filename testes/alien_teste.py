@@ -22,7 +22,7 @@ def run_game():
         gf.check_events(my_settings, screen, nave, tiros)
         nave.update()
         gf.update_tiros(tiros,nave)
-        #gf.update_gota(gotas)
+        gf.update_gota(gotas)
         gf.update_screen(my_settings, screen, nave, stars, tiros, gotas)
 
 run_game()

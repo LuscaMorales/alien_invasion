@@ -85,37 +85,44 @@ def get_numbers_rows(my_settings, nave_width, star_width):
     number_rows = int(available_space_x  / (2 * star_width))
     return number_rows
 
-def linha_da_gota(my_settings, gota_width):
+def colunas_da_gota(my_settings, gota_width):
     available_x_gota = my_settings.screen_widht
-    numbers_gota = int(available_x_gota / (2 * gota_width))
-    return numbers_gota
+    colunas_gota = int(available_x_gota / (2 * gota_width))
+    return colunas_gota
 
 def create_gota(my_settings, screen, gotas, gota_numbers, gota_coluna):
     gota = Gota(my_settings, screen)
     gota_width = gota.rect.width
     gota_heigth = gota.rect.height
-    gota.x = int(2 * gota_width * gota_numbers)
+    gota.x = int( 2 * gota_width * gota_numbers)
     gota.rect.x = gota.x
-    gota.y = int(gota.screen_rect  2 * gota_heigth * gota_coluna)
+    gota.y = int((-gota.screen_rect.height) + 2 * gota_heigth * gota_coluna)
     gota.rect.y = gota.y
     gotas.add(gota)
 
 def create_todas_gota(my_settings, screen, gotas):
     gota = Gota(my_settings, screen)
-    linha_gota =  linha_da_gota(my_settings, gota.rect.width)
-    quantidade_add = 3
-    linha_gota += quantidade_add
-    numero_de_colunas_gota = numero_colunas_gota(my_settings, gota.rect.height)
-    for gota_coluna in range(numero_de_colunas_gota):
-        for gota_numbers in range(linha_gota):
+    coluna_gota =  colunas_da_gota(my_settings, gota.rect.width)
+    quantidade_add = 0
+    coluna_gota += quantidade_add
+    numero_de_linha_gota = numero_linhas_gota(my_settings, gota.rect.height)
+    for gota_coluna in range(numero_de_linha_gota):
+        for gota_numbers in range(coluna_gota):
             create_gota(my_settings, screen, gotas, gota_numbers, gota_coluna)
 
-def numero_colunas_gota(my_settings, gota_height):
+def numero_linhas_gota(my_settings, gota_height):
     available_y_gota = my_settings.screen_height
-    numero_colunas = int(available_y_gota / (2 * gota_height))
-    colunas_add = 2
-    numero_colunas += colunas_add
-    return numero_colunas
+    numero_linhas = int(available_y_gota / (2 * gota_height))
+    colunas_add = 1
+    numero_linhas += colunas_add
+    return numero_linhas
 
 def update_gota(gotas):
     gotas.update()
+    check_bottom_screen(gotas)
+
+def check_bottom_screen(gotas):
+    for gota in gotas.sprites():
+        if gota.check_bottom():
+            gota.go_to_up()
+
