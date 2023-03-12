@@ -13,3 +13,4 @@ class Settings():
         self.tiros_allowed = 3
         #config da gota
         self.gota_speed = 1
+        self.star_speed = 1

@@ -3,6 +3,7 @@ import pygame
 from tiros import Tiro
 from star import Star
 from gotas import Gota
+from random import randint
 
 def check_events(my_settings, screen, nave, tiros):
     for event in pygame.event.get():
@@ -67,9 +68,13 @@ def get_numbers_stars_y(my_settings, star_height):
 def create_star(my_settings, screen, stars , star_number, row_number):
     star = Star(my_settings, screen)
     star_height = star.rect.height
-    star.y = int(star_height + (2 * star_height * star_number))
-    star.rect.y = star.y
-    star.rect.x = my_settings.screen_widht - star.rect.width - 2 * star.rect.width * row_number
+    random_number = randint(-250, 250)
+    star.y = int(star_height + (2 * star_height * star_number) + random_number )
+    if star.y >= 0 and star.y <= star.screen_rect.bottom:
+        star.rect.y = int(star.y)
+    star.x = (my_settings.screen_widht * 1.9) - star.rect.width - (2 * star.rect.width * row_number) + random_number
+    if star.x >= 200 and star.x <= my_settings.screen_widht:
+        star.rect.x = int(star.x)
     stars.add(star)
 
 def create_fleet(my_settings, screen, stars, nave):
@@ -84,6 +89,14 @@ def get_numbers_rows(my_settings, nave_width, star_width):
     available_space_x = (my_settings.screen_widht - (3 * star_width) - nave_width)
     number_rows = int(available_space_x  / (2 * star_width))
     return number_rows
+
+def update_star(my_settings, screen, stars, nave):
+    for star in stars:
+        star.update()
+        if pygame.Rect.colliderect(star.rect, nave.rect) or star.rect.x == -100:
+            stars.remove(star)
+    if len(stars) == 0:
+        create_fleet(my_settings, screen, stars, nave)
 
 def colunas_da_gota(my_settings, gota_width):
     available_x_gota = my_settings.screen_widht

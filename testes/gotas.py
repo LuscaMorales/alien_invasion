@@ -9,6 +9,7 @@ class Gota(Sprite):
         self.my_settings = my_settings
         self.image = pygame.image.load("images/gota.png")
         self.image = pygame.transform.scale(self.image, (25, 30))
+       #self.image = pygame.transform.rotate(self.image, -45)
         self.rect = self.image.get_rect()
         self.rect.x = self.rect.width
         self.rect.y = self.screen_rect.top
