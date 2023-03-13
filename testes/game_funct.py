@@ -68,14 +68,15 @@ def get_numbers_stars_y(my_settings, star_height):
 def create_star(my_settings, screen, stars , star_number, row_number):
     star = Star(my_settings, screen)
     star_height = star.rect.height
-    random_number = randint(-250, 250)
+    random_number = randint(-50, 50)
     star.y = int(star_height + (2 * star_height * star_number) + random_number )
+    star.x = (my_settings.screen_widht * 1.9) - star.rect.width - (2 * star.rect.width * row_number) + random_number
     if star.y >= 0 and star.y <= star.screen_rect.bottom:
         star.rect.y = int(star.y)
-    star.x = (my_settings.screen_widht * 1.9) - star.rect.width - (2 * star.rect.width * row_number) + random_number
-    if star.x >= 200 and star.x <= my_settings.screen_widht:
+        stars.add(star)
+    elif star.x >= 200 and star.x <= my_settings.screen_widht:
         star.rect.x = int(star.x)
-    stars.add(star)
+        stars.add(star)
 
 def create_fleet(my_settings, screen, stars, nave):
     star = Star(my_settings, screen)
@@ -93,10 +94,15 @@ def get_numbers_rows(my_settings, nave_width, star_width):
 def update_star(my_settings, screen, stars, nave):
     for star in stars:
         star.update()
-        if pygame.Rect.colliderect(star.rect, nave.rect) or star.rect.x == -100:
+        if pygame.Rect.colliderect(star.rect, nave.rect):
+            stars.remove(star)
+        if star.rect.right == star.screen_rect.left:
+            my_settings.lost_star += 1
             stars.remove(star)
     if len(stars) == 0:
         create_fleet(my_settings, screen, stars, nave)
+    if my_settings.lost_star >= 3:
+        sys.exit()
 
 def colunas_da_gota(my_settings, gota_width):
     available_x_gota = my_settings.screen_widht

@@ -5,6 +5,7 @@ class Settings():
         self.screen_height = 650
         self.bg_color = (230, 230, 230)
         self.ship_speed_factor = 3
+        self.ship_limit = 3
         #config dos projeteis
         self.bullet_speed_factor = 1.5
         self.bullet_widht = 3
@@ -12,6 +13,6 @@ class Settings():
         self.bullet_color = (60, 60, 60)
         self.bullets_allowed = 3
         #configuraçoes dos alienigenas
-        self.alien_speed_factor = 0.1
-        self.fleet_drop_speed = 1
+        self.alien_speed_factor = 1
+        self.fleet_drop_speed = 3
         self.fleet_direction = 1

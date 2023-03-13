@@ -14,3 +14,6 @@ class Settings():
         #config da gota
         self.gota_speed = 1
         self.star_speed = 1
+        #config limites
+        self.lost_star = 0
+        self.lost_limit = 3
